@@ -1,6 +1,9 @@
+# IA ASSISTANT FOR STREAMER
+###For entertainment purpose
+
 #ajouter un requiremets.txt  et l'installation
 
-# Remplir le .env.example avec les API OPENAI / ELEVENLABS ET PICOVOICE
+#Remplir le .env.example avec les API OPENAI / ELEVENLABS ET PICOVOICE
 
 #COMMENT RECUPERER CES CLES API
     #CREER COMPTE OPENAI
