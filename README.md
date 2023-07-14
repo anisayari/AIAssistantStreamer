@@ -1,6 +1,14 @@
 # ASSISTANT IA POUR STREAMER
-### Pour divertissement
+### Pour du divertissement
 ![alt text](https://raw.githubusercontent.com/anisayari/AIAssitantStreamer/main/assets/topic.png)
+
+@TODO CONTRIBUTORS :list 
+- Screen des étapes
+- Faire une installation avec un requirements.txt
+- rendre plus efficace le code (réduire la latence)
+- Améliorer le README
+- etc....
+- 
 ## Configuration nécessaire
 
 1. Créez un fichier `requirements.txt` avec toutes les dépendances Python nécessaires. Exécutez `pip install -r requirements.txt` pour installer toutes les dépendances.
@@ -8,6 +16,10 @@
 2. Remplissez le fichier `.env.example` avec vos clés API pour OPENAI, ELEVENLABS, et PICOVOICE. Renommez ce fichier en `.env`.
 
 ## Comment obtenir ces clés API
+
+### Récupérer sa clé twitch
+
+
 
 ### Créez un compte sur OPENAI
 
