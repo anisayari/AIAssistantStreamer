@@ -21,7 +21,7 @@
 2. Inscrivez-vous pour un compte.
 3. Une fois connecté, vous trouverez votre clé API dans le tableau de bord.
 
-### Créez le mot clé (Wake Word) dans PICOVOICE
+## Créez le mot clé (Wake Word) dans PICOVOICE
 
 1. Allez sur [Picovoice Console](https://console.picovoice.ai/).
 2. Créez un nouveau mot clé (Wake Word).
