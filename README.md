@@ -1,6 +1,6 @@
 # ASSISTANT IA POUR STREAMER
 ### Pour divertissement
-![alt text](https://github.com/anisayari/AIAssitantStreamer/assets/topic.png)
+![alt text](https://raw.githubusercontent.com/anisayari/AIAssitantStreamer/main/assets/topic.png)
 ## Configuration nécessaire
 
 1. Créez un fichier `requirements.txt` avec toutes les dépendances Python nécessaires. Exécutez `pip install -r requirements.txt` pour installer toutes les dépendances.
