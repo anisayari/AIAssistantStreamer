@@ -6,6 +6,7 @@
 - Screen des étapes
 - Faire une installation avec un requirements.txt
 - rendre plus efficace le code (réduire la latence)
+- Rajouter du langhchain (si nécéssaire et testant la latence) pour modifier son LLM etc..
 - Améliorer le README
 - etc....
 - 
