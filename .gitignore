@@ -1,0 +1,6 @@
+.idea/*
+*.wav
+*.mp3
+*.pv
+*.ppn
+.env
