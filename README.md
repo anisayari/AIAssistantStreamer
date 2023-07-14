@@ -1,6 +1,6 @@
 # ASSISTANT IA POUR STREAMER
 ### Pour divertissement
-
+![alt text](https://github.com/anisayari/AIAssitantStreamer/assets/topic.png)
 ## Configuration nécessaire
 
 1. Créez un fichier `requirements.txt` avec toutes les dépendances Python nécessaires. Exécutez `pip install -r requirements.txt` pour installer toutes les dépendances.
@@ -17,7 +17,7 @@
 
 ### Créez un compte sur ELEVENLABS
 
-1. Allez sur [ElevenLabs](https://www.eleven-labs.com/).
+1. Allez sur [ElevenLabs](https://beta.elevenlabs.io/).
 2. Inscrivez-vous pour un compte.
 3. Une fois connecté, vous trouverez votre clé API dans le tableau de bord.
 

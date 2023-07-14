@@ -14,6 +14,8 @@ import pvporcupine
 from pvrecorder import PvRecorder
 import os
 import random
+import socket
+import signal
 
 
 load_dotenv(find_dotenv())
@@ -28,6 +30,35 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 openai.organization = os.getenv('OPENAI_ORG')
 sd.query_devices()
 #FUNCTION WAKE_WORD
+
+def init_twitch():
+    server = 'irc.chat.twitch.tv'
+    port = 6667
+    nickname = 'defendintelligence'
+
+    token = os.getenv('TOKEN_TWITCH')
+    channel = os.getenv('USERNAME_TWITCH')
+
+    sock = socket.socket()
+    sock.connect((server, port))
+
+    sock.send(f"PASS {token}\n".encode('utf-8'))
+    sock.send(f"NICK {nickname}\n".encode('utf-8'))
+    sock.send(f"JOIN #{channel}\n".encode('utf-8'))
+    return sock
+
+def detect_twitch_bot_command(sock):
+    resp = sock.recv(2048).decode('utf-8')
+    print(resp)
+    if resp.startswith('PING'):
+        sock.send("PONG :tmi.twitch.tv\n".encode('utf-8'))
+    elif 'PRIVMSG' in resp and 'wizebot' not in resp and '!yomanu' in resp:
+        user = resp.split('PRIVMSG')[0].split(':')[1].split('!')[0]
+        msg = resp.split('PRIVMSG')[1].split(':')
+        res = msg[1].replace('!yomanu','')
+        return f"L'utilisateur {user} te dit {res}"
+    else:
+        return ''
 
 
 # FUNCTION REC MIC
@@ -86,7 +117,8 @@ def generate_script_gpt(text,messages_prev):
         messages_prev = [
             {"role": "system", "content": """Tu es l'assistant IA de Defend Intelligence,
             un streamer et youtuber sur Twitch. Tu dois répondre de manière drôle et atypique, à ce que Defend Intelligence te dis.
-            Dans la mesure du possible tu donneras des réponses assez courtes. """},
+            Dans la mesure du possible tu donneras des réponses assez courtes. 
+            Si un utilisateur te dis quelque chose tu devras lui répondre en citant son pseudo en premier, et en reformulant ce qu'il te demande"""},
 
             {"role": "user", "content": f"""{text}"""}]
     else:
@@ -99,19 +131,24 @@ def generate_script_gpt(text,messages_prev):
         messages_prev = messages_prev[:-10]
     return res,messages_prev
 
-def main(messages_prev):
-    audio_filename = "recorded_audio.wav"
-    print('1/4 RECORD AUDIO')
-    record_audio(audio_filename)
-    print('2/4 SPEECH TO TEXT')
-    transcription = transcribe_audio(audio_filename)
-    print(transcription)
-    print('3/4 GENERATE SCRIPT GPT')
+def main(messages_prev,kind,**kwargs):
+    if kind == 'vocal':
+        audio_filename = "recorded_audio.wav"
+        print('1/4 RECORD AUDIO')
+        record_audio(audio_filename)
+        print('2/4 SPEECH TO TEXT')
+        transcription = transcribe_audio(audio_filename)
+        print(transcription)
+        print('3/4 GENERATE SCRIPT GPT')
+    if kind == 'chat':
+        transcription = kwargs.get('text_chat')
+        messages_prev = []
     res, messages_prev = generate_script_gpt(transcription,messages_prev)
     print('4/4 TEXT TO SPEECH')
     get_generate_audio(res,'output_elevenlabs')
     print("4/5 READING AUDIO GENERATED")
-    return messages_prev
+    if kind == 'vocal':
+        return messages_prev
 
 def get_random_mp3_file(folder_path):
     mp3_files = [file for file in os.listdir(folder_path) if file.endswith(".mp3")]
@@ -120,22 +157,43 @@ def get_random_mp3_file(folder_path):
     random_file = random.choice(mp3_files)
     return os.path.join(folder_path, random_file)
 
+def signal_handler(signal, frame):
+    print("\nProgramme terminé.")
+    sock.close()
+    recorder.stop()
+    exit(0)
+
 if __name__ == "__main__":
     messages_prev = []
     print('LISTENING...')
     recorder = PvRecorder(
         frame_length=porcupine.frame_length)
     recorder.start()
-
+    sock = init_twitch()
     print('Listening ... (press Ctrl+C to exit)')
+    timer=300
+    message = ''
+    signal.signal(signal.SIGINT, signal_handler)
+
     while True:
+        if timer > 0:
+            timer -= 1
         pcm = recorder.read()
         keyword_index = porcupine.process(pcm)
         print(keyword_index)
-        if keyword_index==0:
+        print('TIMER:',timer)
+        if timer == 0:
+            message = detect_twitch_bot_command(sock)
+            print(f'MESSAGE SENT TO BOT : {message}')
+        if keyword_index == 0 or (len(message) > 0 and timer ==0):
             print('DETECTED !!!')
-            song = AudioSegment.from_file(get_random_mp3_file('voix_intro'))
-            play(song)
-            messages_prev = main(messages_prev)
+            if keyword_index ==0:
+                song = AudioSegment.from_file(get_random_mp3_file('voix_intro'))
+                play(song)
+                messages_prev = main(messages_prev, kind='vocal')
+            elif len(message) > 0:
+                main(messages_prev, kind='chat',text_chat=message)
+                timer = 300
+                keyword_index = -1
 
 #ADD TWITCH LIVE
