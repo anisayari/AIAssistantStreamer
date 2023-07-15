@@ -1,0 +1,8 @@
+sounddevice==0.4.6
+pyaudio==0.2.13
+python-dotenv==1.0.0
+pydub==0.25.1
+pvporcupine==2.2.1
+pvrecorder==1.2.0
+openai==0.27.8
+elevenlabs==0.2.19

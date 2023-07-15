@@ -12,7 +12,7 @@
 - 
 ## Configuration nécessaire
 
-1. Créez un fichier `requirements.txt` avec toutes les dépendances Python nécessaires. Exécutez `pip install -r requirements.txt` pour installer toutes les dépendances.
+1. Exécutez `pip install -r requirements.txt` pour installer toutes les dépendances.
 
 2. Remplissez le fichier `.env.example` avec vos clés API pour OPENAI, ELEVENLABS, et PICOVOICE. Renommez ce fichier en `.env`.
 
@@ -45,3 +45,11 @@
 1. Connectez-vous à votre compte ElevenLabs.
 2. Utilisez la fonctionnalité de génération de voix pour créer des voix d'introduction personnalisées.
 3. Téléchargez ces voix et ajoutez-les manuellement à votre dossier 'voix_intro'.
+
+## Annexes
+
+### Debian 11
+
+Pour **pyaudio** il est nécessaire d'installer les paquets suivants:
+
+* sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
