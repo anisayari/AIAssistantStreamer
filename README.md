@@ -16,6 +16,12 @@
 
 2. Remplissez le fichier `.env.example` avec vos clés API pour OPENAI, ELEVENLABS, et PICOVOICE. Renommez ce fichier en `.env`.
 
+3. Installer mpv & ffmpeg
+
+   `choco install mpv`
+   
+   `choco install ffmpeg`
+
 ## Comment obtenir ces clés API
 
 ### Récupérer sa clé twitch
