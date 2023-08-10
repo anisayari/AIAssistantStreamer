@@ -1,26 +1,25 @@
 # ASSISTANT IA POUR STREAMER
+
 ### Pour du divertissement
+
 ![alt text](https://raw.githubusercontent.com/anisayari/AIAssitantStreamer/main/assets/topic.png)
 
-@TODO CONTRIBUTORS :list 
-- Screen des étapes
-- Faire une installation avec un requirements.txt
-- rendre plus efficace le code (réduire la latence)
-- Rajouter du langhchain (si nécéssaire et testant la latence) pour modifier son LLM etc..
-- Améliorer le README
-- etc....
-- 
+@TODO CONTRIBUTORS :list
+
+- Screen des étapes,
+- Rendre plus efficace le code (réduire la latence),
+- Rajouter du langchain (si nécessaire et testant la latence) pour modifier son LLM, etc.
+- Améliorer le README,
+- etc.
+
 ## Configuration nécessaire
 
 1. Exécutez `pip install -r requirements.txt` pour installer toutes les dépendances.
 
-2. Remplissez le fichier `.env.example` avec vos clés API pour OPENAI, ELEVENLABS, et PICOVOICE. Renommez ce fichier en `.env`.
+2. Remplissez le fichier `.env.example` avec vos clés API pour OPENAI, ELEVENLABS, et PICOVOICE. Renommez ce fichier
+   en `.env`.
 
 ## Comment obtenir ces clés API
-
-### Récupérer sa clé twitch
-
-
 
 ### Créez un compte sur OPENAI
 
@@ -48,8 +47,15 @@
 
 ## Annexes
 
-### Debian 11
+### Erreur lors de l'installation de pyaudio
 
-Pour **pyaudio** il est nécessaire d'installer les paquets suivants:
+#### Debian 11 & 12
 
-* sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+* `apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0`
+* `pip install -r requirements.txt`
+
+#### Macos
+
+* `xcode-select --install`
+* `brew install portaudio`
+* `pip install -r requirements.txt`
